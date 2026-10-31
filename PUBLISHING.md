@@ -27,10 +27,12 @@ openssl version
 
 Node.js só é necessário para **regenerar** as cores (pasta `converter/`). Para assinar e publicar, não precisa: os temas gerados já estão no repositório.
 
-Traga o projeto para o computador (clone do repositório ou cópia da pasta) e entre nele:
+Clone o repositório (é privado, então o git pede autenticação: use `gh auth login` do GitHub CLI, uma chave SSH ou um Personal Access Token como senha):
 
 ```bash
-cd ~/intellij-norte-theme      # ajuste para onde o projeto ficou
+cd ~
+git clone https://github.com/hugonorte/intellij-norte-plugin.git
+cd ~/intellij-norte-plugin
 chmod +x gradlew               # garante a permissão de execução
 ./gradlew --version            # baixa o Gradle na primeira vez
 ```
@@ -97,7 +99,7 @@ read -rs -p "Senha da chave: " PRIVATE_KEY_PASSWORD && echo && export PRIVATE_KE
 Gere, assine e verifique:
 
 ```bash
-cd ~/intellij-norte-theme
+cd ~/intellij-norte-plugin
 ./gradlew buildPlugin signPlugin verifyPluginSignature
 ls -l build/distributions/
 ```
