@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <rect x="0" y="0" width="40" height="40" rx="8" fill="#101119"/>
+  <!-- four-pointed north star; the north point is longer and solid -->
+  <path d="M20 3 L23 17 L20 20 L17 17 Z" fill="#8A78FE"/>
+  <path d="M20 37 L22 23 L20 20 L18 23 Z" fill="#8A78FE" fill-opacity="0.45"/>
+  <path d="M7 20 L17 18 L20 20 L17 22 Z" fill="#8A78FE" fill-opacity="0.45"/>
+  <path d="M33 20 L23 18 L20 20 L23 22 Z" fill="#8A78FE" fill-opacity="0.45"/>
+  <circle cx="20" cy="20" r="2" fill="#C8DDFC"/>
+</svg>

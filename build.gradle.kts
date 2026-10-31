@@ -3,6 +3,12 @@ plugins {
     id("org.jetbrains.intellij.platform") version "2.19.0"
 }
 
+java {
+    // since-build 253 runs on Java 21
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
 group = providers.gradleProperty("pluginGroup").get()
 version = providers.gradleProperty("pluginVersion").get()
 
