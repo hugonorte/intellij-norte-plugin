@@ -1,0 +1,9 @@
+{
+  "colors": {
+    "CARET_COLOR": "@editorCursor.foreground",
+    "CARET_ROW_COLOR": "@editor.lineHighlightBackground",
+    "GUTTER_BACKGROUND": "@editor.background",
+    "SELECTION_BACKGROUND": "@editor.selectionBackground"
+  },
+  "attributes": {}
+}

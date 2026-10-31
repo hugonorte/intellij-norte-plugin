@@ -1,0 +1,26 @@
+{
+  "name": "Norte Bright",
+  "dark": true,
+  "author": "Hugo Norte",
+  "editorScheme": "/themes/NRT-Bright.xml",
+  "parentTheme": "Islands Dark",
+  "colors": {
+    "bgBar": "#101119",
+    "bgSide": "#222330",
+    "fg": "#C8DDFC",
+    "selection": "#AE81FF1B"
+  },
+  "ui": {
+    "*": {
+      "background": "bgSide",
+      "foreground": "fg"
+    },
+    "List.selectionBackground": "selection",
+    "MainToolbar.background": "bgBar",
+    "Panel.background": "bgSide",
+    "StatusBar.background": "bgBar",
+    "ToolWindow.background": "bgSide",
+    "Tree.background": "bgSide",
+    "Tree.selectionBackground": "selection"
+  }
+}

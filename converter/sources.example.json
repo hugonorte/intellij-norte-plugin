@@ -1,0 +1,11 @@
+{
+  "_comment": "Copy to sources.local.json (git-ignored) and fill in. sourceDir can also come from --source or NRT_SOURCE_DIR.",
+  "sourceDir": "C:/path/to/the/vscode-theme/themes",
+  "files": {
+    "NRT":               "<base-variant-file>.json",
+    "NRT-Bright":        "<bright-variant-file>.json",
+    "NRT-Italic":        "<italic-variant-file>.json",
+    "NRT-Bright-Italic": "<bright-italic-variant-file>.json",
+    "NRT-Light":         "<light-variant-file>.json"
+  }
+}

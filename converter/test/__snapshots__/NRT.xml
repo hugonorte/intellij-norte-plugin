@@ -1,0 +1,37 @@
+<scheme name="Norte" version="142" parent_scheme="Darcula">
+  <colors>
+    <option name="CARET_COLOR" value="ffcc00" />
+    <option name="CARET_ROW_COLOR" value="101119" />
+    <option name="GUTTER_BACKGROUND" value="161821" />
+    <option name="SELECTION_BACKGROUND" value="222344" />
+  </colors>
+  <attributes>
+    <option name="DEFAULT_FUNCTION_DECLARATION">
+      <value>
+        <option name="FOREGROUND" value="61afef" />
+      </value>
+    </option>
+    <option name="DEFAULT_KEYWORD">
+      <value>
+        <option name="FOREGROUND" value="c678dd" />
+      </value>
+    </option>
+    <option name="DEFAULT_LINE_COMMENT">
+      <value>
+        <option name="FOREGROUND" value="5c6370" />
+        <option name="FONT_TYPE" value="2" />
+      </value>
+    </option>
+    <option name="DEFAULT_STRING">
+      <value>
+        <option name="FOREGROUND" value="98c379" />
+      </value>
+    </option>
+    <option name="TEXT">
+      <value>
+        <option name="FOREGROUND" value="abb2bf" />
+        <option name="BACKGROUND" value="161821" />
+      </value>
+    </option>
+  </attributes>
+</scheme>

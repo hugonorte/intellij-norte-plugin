@@ -54,6 +54,6 @@ tasks.named("processResources") {
     val themesDir = layout.projectDirectory.dir("src/main/resources/themes").asFile
     doFirst {
         val count = themesDir.listFiles()?.count { it.name.endsWith(".theme.json") || it.name.endsWith(".xml") } ?: 0
-        if (count < 2) throw GradleException("Themes not generated. Run: cd converter && npm run build")
+        if (count < 10) throw GradleException("Themes not generated. Run: cd converter && npm run build")
     }
 }

@@ -1,0 +1,11 @@
+{
+  "name": "nrt-intellij-converter",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node src/index.js --out ../src/main/resources/themes --plugin-xml ../src/main/resources/META-INF/plugin.xml",
+    "test": "node --test test/",
+    "snapshots:update": "node src/index.js --update-snapshots",
+    "known-keys": "node tools/extract-known-keys.js"
+  }
+}

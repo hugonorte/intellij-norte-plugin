@@ -13,6 +13,10 @@
   <extensions defaultExtensionNs="com.intellij">
     <!-- BEGIN GENERATED -->
     <themeProvider id="a9fec1a0-a874-4b5c-96f1-f923094238bb" path="/themes/NRT.theme.json"/>
+    <themeProvider id="641225fd-7f07-4f72-bf7d-a6f9f64e18ea" path="/themes/NRT-Bright.theme.json"/>
+    <themeProvider id="d7549ac4-5472-4ab5-931c-65a8d8037d41" path="/themes/NRT-Italic.theme.json"/>
+    <themeProvider id="d830cbd9-c609-42c6-8a4a-bf09afa93f5f" path="/themes/NRT-Bright-Italic.theme.json"/>
+    <themeProvider id="49dcab2d-c96a-48e6-b34f-e1819fce52f1" path="/themes/NRT-Light.theme.json"/>
     <!-- END GENERATED -->
   </extensions>
 </idea-plugin>

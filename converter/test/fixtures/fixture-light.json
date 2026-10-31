@@ -1,0 +1,27 @@
+{
+  "$schema": "vscode://schemas/color-theme",
+  "name": "Fixture Light",
+  "type": "light",
+  "colors": {
+    "foreground": "#383A42",
+    "focusBorder": "#526FFF",
+    "errorForeground": "#E45649",
+    "activityBar.background": "#E5E5E6",
+    "sideBar.background": "#F0F0F1",
+    "panel.background": "#FAFAFA",
+    "dropdown.border": "#DBDBDC",
+    "input.background": "#FFFFFF",
+    "list.activeSelectionBackground": "#DBDBDC",
+    "editor.background": "#FAFAFA",
+    "editor.foreground": "#383A42",
+    "editor.selectionBackground": "#E5E5E6",
+    "editorCursor.foreground": "#526FFF",
+    "terminal.ansiRed": "#E45649"
+  },
+  "tokenColors": [
+    { "scope": "comment", "settings": { "foreground": "#A0A1A7", "fontStyle": "italic" } },
+    { "scope": "string", "settings": { "foreground": "#50A14F" } },
+    { "scope": "keyword", "settings": { "foreground": "#A626A4" } },
+    { "scope": "entity.name.function", "settings": { "foreground": "#4078F2" } }
+  ]
+}

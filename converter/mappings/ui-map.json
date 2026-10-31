@@ -1,0 +1,6 @@
+{
+  "sideBar.background": ["Tree.background", "ToolWindow.background", "Panel.background"],
+  "statusBar.background": ["StatusBar.background"],
+  "titleBar.activeBackground": ["MainToolbar.background"],
+  "list.activeSelectionBackground": ["Tree.selectionBackground", "List.selectionBackground"]
+}

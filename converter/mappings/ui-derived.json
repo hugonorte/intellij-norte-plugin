@@ -1,0 +1,6 @@
+{
+  "*": {
+    "background": "@sideBar.background",
+    "foreground": "@foreground"
+  }
+}

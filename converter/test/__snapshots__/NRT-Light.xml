@@ -1,0 +1,39 @@
+<scheme name="Norte Light" version="142" parent_scheme="Default">
+  <colors>
+    <option name="CARET_COLOR" value="fc8357" />
+    <option name="CARET_ROW_COLOR" value="e3e6ed" />
+    <option name="GUTTER_BACKGROUND" value="ebeef5" />
+    <option name="SELECTION_BACKGROUND" value="d0c6f7" />
+  </colors>
+  <attributes>
+    <option name="DEFAULT_FUNCTION_DECLARATION">
+      <value>
+        <option name="FOREGROUND" value="437aed" />
+        <option name="FONT_TYPE" value="1" />
+      </value>
+    </option>
+    <option name="DEFAULT_KEYWORD">
+      <value>
+        <option name="FOREGROUND" value="c838c6" />
+        <option name="FONT_TYPE" value="1" />
+      </value>
+    </option>
+    <option name="DEFAULT_LINE_COMMENT">
+      <value>
+        <option name="FOREGROUND" value="a9a9aa" />
+        <option name="FONT_TYPE" value="2" />
+      </value>
+    </option>
+    <option name="DEFAULT_STRING">
+      <value>
+        <option name="FOREGROUND" value="53a053" />
+      </value>
+    </option>
+    <option name="TEXT">
+      <value>
+        <option name="FOREGROUND" value="5d5d5f" />
+        <option name="BACKGROUND" value="ebeef5" />
+      </value>
+    </option>
+  </attributes>
+</scheme>

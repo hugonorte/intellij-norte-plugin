@@ -1,0 +1,6 @@
+{
+  "DEFAULT_KEYWORD": { "scopes": ["source.js", "keyword.control.conditional.js"] },
+  "DEFAULT_STRING": { "scopes": ["source.js", "string.quoted.double.js"] },
+  "DEFAULT_LINE_COMMENT": { "scopes": ["source.js", "comment.line.double-slash.js"] },
+  "DEFAULT_FUNCTION_DECLARATION": { "scopes": ["source.js", "meta.function.js", "entity.name.function.js"] }
+}

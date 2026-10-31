@@ -1,0 +1,38 @@
+// Synthetic dark theme used by the unit tests (JSONC: comments and trailing commas allowed).
+{
+  "name": "Fixture Dark",
+  "type": "dark",
+  "colors": {
+    "foreground": "#C8DDFC",
+    "focusBorder": "#AE81FF6B",
+    "errorForeground": "#E50A69",
+    "activityBar.background": "#101119",
+    "activityBarBadge.background": "#8A78FE",
+    "activityBarBadge.foreground": "#101119",
+    "sideBar.background": "#222330",
+    "statusBar.background": "#101119",
+    "titleBar.activeBackground": "#101119",
+    "dropdown.border": "#292A32",
+    "input.background": "#0D0E14",
+    "list.activeSelectionBackground": "#AE81FF1B",
+    "editor.background": "#161821",
+    "editor.foreground": "#AAB1C0",
+    "editor.lineHighlightBackground": "#101119",
+    "editor.selectionBackground": "#5755D930",
+    "editorCursor.foreground": "#FFCC00",
+    "editorLineNumber.foreground": "#5C637050", /* alpha must be blended */
+  },
+  "tokenColors": [
+    { "settings": { "foreground": "#ABB2BF", "background": "#161821" } },
+    { "name": "Comment", "scope": "comment, punctuation.definition.comment", "settings": { "foreground": "#5C6370", "fontStyle": "italic" } },
+    { "scope": "string", "settings": { "foreground": "#98C379" } },
+    { "scope": ["constant.numeric", "constant.language"], "settings": { "foreground": "#D19A66" } },
+    { "scope": "keyword", "settings": { "foreground": "#C678DD" } },
+    { "scope": "keyword.operator", "settings": { "foreground": "#56B6C2" } },
+    { "scope": "entity.name.function, meta.class-method.js entity.name.function.js", "settings": { "foreground": "#61AFEF" } },
+    { "scope": "entity.name.type", "settings": { "foreground": "#E5C07B", "fontStyle": "italic underline" } },
+    { "scope": "variable.language", "settings": { "foreground": "#E06C75" } },
+    { "scope": "support.type.property-name.json", "settings": { "foreground": "#E06C7590" } },
+    { "scope": "invalid.deprecated", "settings": { "foreground": "#523D14", "background": "#E0C285", "fontStyle": "strikethrough" } },
+  ],
+}

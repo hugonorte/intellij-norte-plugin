@@ -1,0 +1,26 @@
+{
+  "name": "Norte Light",
+  "dark": false,
+  "author": "Hugo Norte",
+  "editorScheme": "/themes/NRT-Light.xml",
+  "parentTheme": "Islands Light",
+  "colors": {
+    "bgBar": "#D7DEEB",
+    "bgSide": "#E1E4EB",
+    "fg": "#626264",
+    "selection": "#FFFFFF"
+  },
+  "ui": {
+    "*": {
+      "background": "bgSide",
+      "foreground": "fg"
+    },
+    "List.selectionBackground": "selection",
+    "MainToolbar.background": "bgBar",
+    "Panel.background": "bgSide",
+    "StatusBar.background": "bgBar",
+    "ToolWindow.background": "bgSide",
+    "Tree.background": "bgSide",
+    "Tree.selectionBackground": "selection"
+  }
+}
