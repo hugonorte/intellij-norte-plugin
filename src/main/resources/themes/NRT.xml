@@ -1,0 +1,23 @@
+<scheme name="Norte" version="142" parent_scheme="Darcula">
+  <colors>
+    <option name="CARET_COLOR" value="ffcc00" />
+  </colors>
+  <attributes>
+    <option name="DEFAULT_KEYWORD">
+      <value>
+        <option name="FOREGROUND" value="c678dd" />
+      </value>
+    </option>
+    <option name="DEFAULT_STRING">
+      <value>
+        <option name="FOREGROUND" value="98c379" />
+      </value>
+    </option>
+    <option name="TEXT">
+      <value>
+        <option name="FOREGROUND" value="abb2bf" />
+        <option name="BACKGROUND" value="161821" />
+      </value>
+    </option>
+  </attributes>
+</scheme>

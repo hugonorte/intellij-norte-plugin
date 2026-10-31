@@ -1,0 +1,16 @@
+{
+  "name": "Norte",
+  "dark": true,
+  "author": "Hugo Norte",
+  "editorScheme": "/themes/NRT.xml",
+  "ui": {
+    "*": {
+      "background": "#222330",
+      "foreground": "#C8DDFC"
+    },
+    "EditorTabs.background": "#101119",
+    "MainToolbar.background": "#101119",
+    "StatusBar.background": "#101119",
+    "Tree.selectionBackground": "#AE81FF1B"
+  }
+}

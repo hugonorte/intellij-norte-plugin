@@ -45,11 +45,15 @@ intellijPlatform {
     }
 }
 
+tasks.named<Zip>("buildPlugin") {
+    archiveBaseName = "norte"
+}
+
 // Generated themes must exist before packaging (they are produced by the converter and committed).
-val themesDir = layout.projectDirectory.dir("src/main/resources/themes").asFile
 tasks.named("processResources") {
+    val themesDir = layout.projectDirectory.dir("src/main/resources/themes").asFile
     doFirst {
         val count = themesDir.listFiles()?.count { it.name.endsWith(".theme.json") || it.name.endsWith(".xml") } ?: 0
-        check(count >= 2) { "Themes not generated. Run: cd converter && npm run build" }
+        if (count < 2) throw GradleException("Themes not generated. Run: cd converter && npm run build")
     }
 }

@@ -1,0 +1,18 @@
+<idea-plugin>
+  <id>com.hugonorte.norte</id>
+  <name>Norte</name>
+  <vendor email="hugonorte@gmail.com">Hugo Norte</vendor>
+
+  <description><![CDATA[
+    <b>Norte</b> is a dark theme with a deep indigo workbench and vivid, balanced syntax colors.
+    Includes 5 variants: Norte, Norte Bright, Norte Italic, Norte Bright Italic and Norte Light.
+  ]]></description>
+
+  <depends>com.intellij.modules.platform</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- BEGIN GENERATED -->
+    <themeProvider id="a9fec1a0-a874-4b5c-96f1-f923094238bb" path="/themes/NRT.theme.json"/>
+    <!-- END GENERATED -->
+  </extensions>
+</idea-plugin>
