@@ -34,6 +34,7 @@ export function loadConfig(root = CONVERTER_ROOT) {
       ? {
           colors: new Set([...knownEditor.colors, ...(knownExtra?.colors || [])]),
           attributes: new Set([...knownEditor.attributes, ...(knownExtra?.attributes || [])]),
+          parentDefined: knownEditor.parentDefined || {},
         }
       : null,
   };
@@ -131,7 +132,11 @@ function printReport(reports, verbose) {
         ` | warnings: ${ui.warnings.length + scheme.warnings.length}`,
     );
     for (const w of [...ui.warnings, ...scheme.warnings]) console.log(`  warning: ${w}`);
+    if (scheme.parentOnly.length) {
+      console.log(`  info: ${scheme.parentOnly.length} attribute keys keep the ${variant.parentScheme} colors (use --verbose to list)`);
+    }
     if (verbose) {
+      if (scheme.parentOnly.length) console.log(`  parent-only keys: ${scheme.parentOnly.join(' ')}`);
       for (const i of scheme.info) console.log(`  info: ${i}`);
       for (const [k, sel] of Object.entries(scheme.winners).sort()) console.log(`  ${k} <- ${sel}`);
       if (scheme.unusedRules.length) console.log(`  rules that never won (${scheme.unusedRules.length}): ${scheme.unusedRules.join(' | ')}`);

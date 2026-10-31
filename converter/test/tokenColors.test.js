@@ -26,6 +26,21 @@ test('descendant selectors and segment prefix matching', () => {
   assert.equal(matchSelector(['b', 'a', 'c'], ['a', 'b', 'c']), null);
 });
 
+test('a rule for an ancestor scope applies to inner tokens; deeper matches win', () => {
+  const { rules: r } = rules([
+    { scope: 'entity.name.section', settings: { foreground: '#222222' } },
+    { scope: 'markup.heading', settings: { foreground: '#111111', fontStyle: 'bold' } },
+  ]);
+  // heading rule (ancestor) applies when nothing matches deeper
+  const plain = resolve(['text.html.markdown', 'markup.heading.markdown', 'punctuation.definition.heading.markdown'], r, {});
+  assert.equal(plain.foreground, '#111111');
+  assert.equal(plain.fontStyle, 'bold');
+  // the rule matching the innermost scope wins over the ancestor rule, even if declared earlier
+  const inner = resolve(['text.html.markdown', 'markup.heading.markdown', 'entity.name.section.markdown'], r, {});
+  assert.equal(inner.foreground, '#222222');
+  assert.equal(inner.fontStyle, 'bold', 'fontStyle still inherited from the ancestor rule');
+});
+
 test('the more specific rule wins; ties are broken by order', () => {
   const { rules: r, globalDefaults } = rules([
     { scope: 'entity.name.function', settings: { foreground: '#111111' } },

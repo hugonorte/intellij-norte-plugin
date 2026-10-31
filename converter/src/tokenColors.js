@@ -42,18 +42,31 @@ export function segmentPrefixMatch(p, s) {
   return s === p || s.startsWith(`${p}.`);
 }
 
-/** Returns a score tuple when `parts` matches `stack` (last part on the innermost scope), else null. */
+/**
+ * Returns a score tuple when `parts` matches `stack`, else null.
+ * As in vscode-textmate, the last part may match the innermost scope or an ancestor scope
+ * (a rule for `markup.heading` also colors `entity.name.section` inside the heading); the
+ * deeper the matched scope, the higher the priority. Ancestor parts must match, in order,
+ * scopes above the one matched by the last part (not necessarily adjacent).
+ * Score: [depth of matched scope, segments of last part, number of parts, segments of ancestors].
+ */
 export function matchSelector(parts, stack) {
-  if (!stack.length || !segmentPrefixMatch(parts[parts.length - 1], stack[stack.length - 1])) return null;
-  let i = stack.length - 2;
-  for (let j = parts.length - 2; j >= 0; j--) {
-    while (i >= 0 && !segmentPrefixMatch(parts[j], stack[i])) i--;
-    if (i < 0) return null;
-    i--;
+  const last = parts[parts.length - 1];
+  for (let k = stack.length - 1; k >= 0; k--) {
+    if (!segmentPrefixMatch(last, stack[k])) continue;
+    let i = k - 1;
+    let ok = true;
+    for (let j = parts.length - 2; j >= 0; j--) {
+      while (i >= 0 && !segmentPrefixMatch(parts[j], stack[i])) i--;
+      if (i < 0) { ok = false; break; }
+      i--;
+    }
+    if (!ok) continue;
+    let ancestorSegments = 0;
+    for (let j = 0; j < parts.length - 1; j++) ancestorSegments += segments(parts[j]);
+    return [k, segments(last), parts.length, ancestorSegments];
   }
-  let ancestorSegments = 0;
-  for (let j = 0; j < parts.length - 1; j++) ancestorSegments += segments(parts[j]);
-  return [segments(parts[parts.length - 1]), parts.length, ancestorSegments];
+  return null;
 }
 
 function excluded(rule, stack) {

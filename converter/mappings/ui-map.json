@@ -1,6 +1,109 @@
 {
-  "sideBar.background": ["Tree.background", "ToolWindow.background", "Panel.background"],
+  "_comment": "VSCode workbench color -> IntelliJ UI keys. A list, or {\"to\": [...], \"blendOver\": \"<vscode key>\"}. '*.prop' targets the wildcard block. Key names checked against reference/known-ui-keys.json.",
+
+  "foreground": ["*.foreground", "Label.foreground"],
+  "focusBorder": ["Component.focusColor", "Component.focusedBorderColor", "Button.focusedBorderColor", "Link.focusedBorderColor"],
+  "errorForeground": ["Label.errorForeground", "Component.errorFocusColor", "Tree.errorForeground"],
+  "selection.background": ["TextArea.selectionBackground", "TextField.selectionBackground", "EditorPane.selectionBackground"],
+  "descriptionForeground": ["Label.infoForeground", "Component.infoForeground"],
+
+  "activityBar.background": ["ToolWindow.Stripe.background", "MainWindow.background"],
+  "activityBar.foreground": ["ToolWindow.Button.selectedForeground"],
+  "activityBar.inactiveForeground": ["ToolWindow.Button.foreground"],
+  "activityBar.dropBackground": ["ToolWindow.Button.DragAndDrop.buttonDropBackground"],
+  "activityBarBadge.background": ["Counter.background"],
+  "activityBarBadge.foreground": ["Counter.foreground"],
+
+  "breadcrumb.foreground": ["StatusBar.Breadcrumbs.foreground"],
+  "breadcrumb.focusForeground": ["StatusBar.Breadcrumbs.hoverForeground"],
+
+  "button.background": ["Button.default.startBackground", "Button.default.endBackground", "Button.default.startBorderColor", "Button.default.endBorderColor"],
+  "button.foreground": ["Button.default.foreground"],
+  "button.hoverBackground": ["Button.default.focusedBorderColor", "ActionButton.hoverBackground", "MainToolbar.Icon.hoverBackground", "MainToolbar.Dropdown.transparentHoverBackground"],
+
+  "dropdown.background": ["ComboBox.nonEditableBackground", "ComboBoxButton.background", "ComboBox.ArrowButton.background"],
+  "dropdown.foreground": ["ComboBox.foreground"],
+  "dropdown.border": ["*.borderColor", "Component.borderColor", "Borders.color", "Popup.borderColor", "Popup.inactiveBorderColor", "Separator.separatorColor"],
+
+  "editor.background": ["Editor.background", "EditorPane.inactiveBackground"],
+  "editor.foreground": ["Editor.foreground"],
+
+  "editorGroupHeader.tabsBackground": ["EditorTabs.background"],
+  "tab.activeBackground": ["EditorTabs.underlinedTabBackground", "EditorTabs.selectedBackground"],
+  "tab.activeForeground": ["EditorTabs.underlinedTabForeground", "EditorTabs.selectedForeground"],
+  "tab.activeBorder": ["EditorTabs.underlineColor", "EditorTabs.underlinedBorderColor"],
+  "tab.unfocusedActiveBorder": ["EditorTabs.inactiveUnderlineColor", "EditorTabs.inactiveUnderlinedTabBorderColor"],
+  "tab.unfocusedActiveBackground": ["EditorTabs.inactiveUnderlinedTabBackground"],
+  "tab.hoverBackground": ["EditorTabs.hoverBackground", "EditorTabs.hoverInactiveBackground"],
+  "tab.border": ["EditorTabs.borderColor", "EditorTabs.underTabsBorderColor"],
+  "editorGroup.border": ["OnePixelDivider.background", "Borders.ContrastBorderColor", "EditorPane.splitBorder"],
+
+  "sideBar.background": ["ToolWindow.background", "Tree.background", "SidePanel.background", "Island.borderColor", "ToolWindow.Header.inactiveBackground", "ToolWindow.Header.background"],
+  "sideBar.foreground": ["Tree.foreground"],
+  "sideBarSectionHeader.background": ["ToolWindow.HeaderTab.selectedBackground", "ToolWindow.HeaderTab.underlinedTabBackground"],
+  "sideBarSectionHeader.foreground": ["ToolWindow.HeaderTab.underlinedTabForeground"],
+  "sideBarSectionHeader.border": ["ToolWindow.Header.borderColor"],
+
+  "panel.background": ["Panel.background"],
+  "panelTitle.activeBorder": ["ToolWindow.HeaderTab.underlineColor", "TabbedPane.underlineColor"],
+  "panelTitle.activeForeground": ["TabbedPane.foreground"],
+  "panelTitle.inactiveForeground": ["TabbedPane.disabledForeground", "ToolWindow.HeaderTab.underlinedTabInactiveForeground"],
+
+  "list.activeSelectionBackground": ["Tree.selectionBackground", "List.selectionBackground", "Table.selectionBackground"],
+  "list.activeSelectionForeground": ["Tree.selectionForeground", "List.selectionForeground", "Table.selectionForeground"],
+  "list.inactiveSelectionBackground": ["Tree.selectionInactiveBackground", "List.selectionInactiveBackground", "Table.selectionInactiveBackground"],
+  "list.hoverBackground": ["Tree.hoverBackground", "List.hoverBackground", "Table.hoverBackground"],
+  "list.highlightForeground": ["SearchMatch.startBackground", "SearchMatch.endBackground", "CompletionPopup.matchForeground"],
+  "list.errorForeground": ["Tree.errorForeground"],
+
+  "input.background": ["TextField.background", "TextArea.background", "FormattedTextField.background", "PasswordField.background", "ComboBox.background", "SearchEverywhere.SearchField.background", "Editor.SearchField.background", "Spinner.background"],
+  "input.foreground": ["TextField.foreground", "TextArea.foreground", "FormattedTextField.foreground", "PasswordField.foreground"],
+  "input.placeholderForeground": ["TextField.inactiveForeground", "SearchEverywhere.SearchField.infoForeground"],
+  "input.border": ["TextField.borderColor"],
+
+  "inputValidation.errorBackground": ["ValidationTooltip.errorBackground"],
+  "inputValidation.errorBorder": ["ValidationTooltip.errorBorderColor"],
+  "inputValidation.warningBackground": ["ValidationTooltip.warningBackground"],
+  "inputValidation.warningBorder": ["ValidationTooltip.warningBorderColor"],
+
+  "notification.background": ["Notification.background"],
+  "notification.foreground": ["Notification.foreground"],
+  "notification.infoBackground": ["Notification.ToolWindow.informativeBackground"],
+  "notifications.background": ["Notification.background"],
+  "notifications.foreground": ["Notification.foreground"],
+  "notifications.border": ["Notification.borderColor"],
+
+  "progressBar.background": ["ProgressBar.progressColor", "ProgressBar.indeterminateStartColor", "ProgressBar.indeterminateEndColor"],
+
+  "scrollbarSlider.background": ["ScrollBar.thumbColor", "ScrollBar.Mac.thumbColor", "ScrollBar.Transparent.thumbColor", "ScrollBar.Mac.Transparent.thumbColor"],
+  "scrollbarSlider.hoverBackground": ["ScrollBar.hoverThumbColor", "ScrollBar.Mac.hoverThumbColor", "ScrollBar.Transparent.hoverThumbColor", "ScrollBar.Mac.Transparent.hoverThumbColor"],
+
   "statusBar.background": ["StatusBar.background"],
-  "titleBar.activeBackground": ["MainToolbar.background"],
-  "list.activeSelectionBackground": ["Tree.selectionBackground", "List.selectionBackground"]
+  "statusBar.foreground": ["StatusBar.Widget.foreground"],
+  "statusBarItem.hoverBackground": ["StatusBar.Widget.hoverBackground", "StatusBar.Breadcrumbs.hoverBackground"],
+  "statusBarItem.activeBackground": ["StatusBar.Widget.pressedBackground", "StatusBar.Breadcrumbs.pressedBackground"],
+
+  "titleBar.activeBackground": ["MainToolbar.background", "TitlePane.background"],
+  "titleBar.inactiveBackground": ["MainToolbar.inactiveBackground", "TitlePane.inactiveBackground"],
+  "titleBar.activeForeground": ["MainToolbar.foreground", "TitlePane.infoForeground"],
+  "titleBar.inactiveForeground": ["TitlePane.inactiveInfoForeground"],
+
+  "editorWidget.background": ["Popup.background", "Popup.Header.activeBackground", "Popup.Header.inactiveBackground", "SearchEverywhere.Header.background", "ParameterInfo.background", "Toolbar.Floating.background"],
+  "editorWidget.border": ["Popup.innerBorderColor"],
+  "editorSuggestWidget.background": ["CompletionPopup.background"],
+  "editorSuggestWidget.foreground": ["CompletionPopup.foreground"],
+  "editorSuggestWidget.selectedBackground": ["CompletionPopup.selectionBackground", "SearchEverywhere.Tab.selectedBackground"],
+  "editorHoverWidget.background": ["ToolTip.background", "Editor.ToolTip.background"],
+  "editorHoverWidget.border": ["ToolTip.borderColor", "Editor.ToolTip.border"],
+
+  "menu.background": ["PopupMenu.background", "Menu.background", "MenuItem.background"],
+  "menu.foreground": ["PopupMenu.foreground", "Menu.foreground", "MenuItem.foreground"],
+  "menu.selectionBackground": ["PopupMenu.selectionBackground", "Menu.selectionBackground", "MenuItem.selectionBackground"],
+  "menu.selectionForeground": ["Menu.selectionForeground", "MenuItem.selectionForeground"],
+
+  "pickerGroup.foreground": ["SearchEverywhere.Advertiser.foreground", "Popup.Advertiser.foreground"],
+  "textLink.foreground": ["Link.activeForeground", "Link.visitedForeground"],
+  "textLink.activeForeground": ["Link.hoverForeground", "Link.pressedForeground"],
+
+  "gitDecoration.modifiedResourceForeground": ["Tree.modifiedItemForeground"]
 }

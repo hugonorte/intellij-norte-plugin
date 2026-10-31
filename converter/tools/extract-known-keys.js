@@ -6,7 +6,11 @@
 //   <ide-install-dir> is an unpacked IDE (e.g. the one Gradle downloads for runIde; look for
 //   "idea-<version>-win" under ~/.gradle/caches/<gradle-version>/transforms).
 //
-// Output: reference/known-ui-keys.json and reference/known-editor-keys.json
+// Output:
+//   reference/known-ui-keys.json      UI keys (theme metadata + bundled *.theme.json) and theme ids
+//   reference/known-editor-keys.json  editor colors and attribute keys (bundled schemes + names found
+//                                     in classes that use TextAttributesKey), plus the attribute keys
+//                                     the Darcula/Default schemes define explicitly ("parentDefined")
 import { readdirSync, readFileSync, statSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -32,7 +36,13 @@ function* jars(dir) {
 const uiKeys = new Set();
 const editorColors = new Set();
 const editorAttributes = new Set();
+const attributesFromCode = new Set();
 const parentThemeIds = new Set();
+const parentDefined = {}; // scheme name -> Set of attribute keys with explicit values
+
+const VALUE_PROPS = /^(FOREGROUND|BACKGROUND|FONT_TYPE|EFFECT_TYPE|EFFECT_COLOR|ERROR_STRIPE_COLOR)$/;
+const UTF8_CONSTANT = /\x01\x00([\s\S])([A-Z][A-Za-z0-9_.]{2,80})/g;
+const KEY_SHAPE = /^[A-Z][A-Z0-9_]*(\.[A-Z][A-Z0-9_.]*)?$/;
 
 function flattenUi(obj, prefix, out) {
   for (const [k, v] of Object.entries(obj)) {
@@ -42,18 +52,34 @@ function flattenUi(obj, prefix, out) {
   }
 }
 
-function collectScheme(xml) {
-  const colorsBlock = xml.match(/<colors>([\s\S]*?)<\/colors>/g) || [];
-  for (const block of colorsBlock) {
+function collectScheme(text, fileName) {
+  // A file may hold several schemes (DefaultColorSchemesManager.xml has Default and Darcula).
+  for (const xml of text.match(/<scheme\s[\s\S]*?<\/scheme>/g) || []) collectOneScheme(xml);
+  // Plugins contribute "additional text attributes" as <list> files registered per scheme;
+  // the scheme is identified here by the file name (e.g. MarkdownDarcula.xml, XmlDefault.xml).
+  if (/^\s*(<\?xml[^>]*>\s*)?<list>/.test(text)) {
+    const base = fileName.slice(fileName.lastIndexOf('/') + 1);
+    const schemeName = /Darcula/i.test(base) ? 'Darcula' : /Default/i.test(base) ? 'Default' : null;
+    const set = schemeName ? (parentDefined[schemeName] ||= new Set()) : null;
+    for (const m of text.matchAll(/^ {2}<option name="([^"]+)"(\s+baseAttributes="[^"]*")?\s*(\/?)>/gm)) {
+      editorAttributes.add(m[1]);
+      if (set && !m[2] && !m[3]) set.add(m[1]);
+    }
+  }
+}
+
+function collectOneScheme(xml) {
+  const schemeName = (xml.match(/<scheme\s+name="([^"]+)"/) || [])[1];
+  for (const block of xml.match(/<colors>[\s\S]*?<\/colors>/g) || []) {
     for (const m of block.matchAll(/<option name="([^"]+)"/g)) editorColors.add(m[1]);
   }
-  const attrBlock = xml.match(/<attributes>([\s\S]*?)<\/attributes>/g) || [];
-  for (const block of attrBlock) {
-    // Only top-level option names inside <attributes> (attribute keys), not FOREGROUND etc.
+  for (const block of xml.match(/<attributes>[\s\S]*?<\/attributes>/g) || []) {
     for (const m of block.matchAll(/<option name="([^"]+)"(?:\s+baseAttributes="[^"]*")?\s*\/?>/g)) {
-      if (!/^(FOREGROUND|BACKGROUND|FONT_TYPE|EFFECT_TYPE|EFFECT_COLOR|ERROR_STRIPE_COLOR)$/.test(m[1])) {
-        editorAttributes.add(m[1]);
-      }
+      if (!VALUE_PROPS.test(m[1])) editorAttributes.add(m[1]);
+    }
+    if (schemeName) {
+      const set = (parentDefined[schemeName] ||= new Set());
+      for (const m of block.matchAll(/<option name="([^"]+)">\s*<value>/g)) set.add(m[1]);
     }
   }
 }
@@ -78,7 +104,16 @@ for (const jar of [...jars(join(ide, 'lib')), ...jars(join(ide, 'plugins'))]) {
       } catch { /* not every *.theme.json is a UI theme */ }
     } else if (/(^|\/)(colorSchemes?|themes)\/.*\.(xml|icls)$/.test(name) || name === 'DefaultColorSchemesManager.xml') {
       const xml = zip.read(name).toString('utf8');
-      if (xml.includes('<scheme')) collectScheme(xml);
+      if (xml.includes('<scheme') || xml.includes('<list>')) collectScheme(xml, name);
+    } else if (name.endsWith('.class')) {
+      const bytes = zip.read(name);
+      if (!bytes || bytes.indexOf('TextAttributesKey') < 0) continue;
+      // Heuristic scan of CONSTANT_Utf8 entries shaped like attribute key names (warnings only).
+      for (const m of bytes.toString('latin1').matchAll(UTF8_CONSTANT)) {
+        const len = m[1].charCodeAt(0);
+        const str = m[2].slice(0, len);
+        if (str.length === len && KEY_SHAPE.test(str) && /[_.]/.test(str)) attributesFromCode.add(str);
+      }
     } else if (name.endsWith('.xml') && name.includes('META-INF')) {
       const xml = zip.read(name).toString('utf8');
       for (const m of xml.matchAll(/<themeProvider\s+id="([^"]+)"/g)) parentThemeIds.add(m[1]);
@@ -88,8 +123,27 @@ for (const jar of [...jars(join(ide, 'lib')), ...jars(join(ide, 'plugins'))]) {
 
 const sorted = (s) => [...s].sort();
 mkdirSync(join(root, 'reference'), { recursive: true });
-writeFileSync(join(root, 'reference', 'known-ui-keys.json'),
-  JSON.stringify({ ide: ideVersion, themeIds: sorted(parentThemeIds), keys: sorted(uiKeys) }, null, 2) + '\n');
-writeFileSync(join(root, 'reference', 'known-editor-keys.json'),
-  JSON.stringify({ ide: ideVersion, colors: sorted(editorColors), attributes: sorted(editorAttributes) }, null, 2) + '\n');
-console.log(`${ideVersion}: ${uiKeys.size} UI keys, ${editorColors.size} editor colors, ${editorAttributes.size} attributes, ${parentThemeIds.size} theme ids`);
+writeFileSync(
+  join(root, 'reference', 'known-ui-keys.json'),
+  JSON.stringify({ ide: ideVersion, themeIds: sorted(parentThemeIds), keys: sorted(uiKeys) }, null, 2) + '\n',
+);
+const parents = Object.fromEntries(
+  ['Darcula', 'Default'].filter((n) => parentDefined[n]).map((n) => [n, sorted(parentDefined[n])]),
+);
+writeFileSync(
+  join(root, 'reference', 'known-editor-keys.json'),
+  JSON.stringify(
+    {
+      ide: ideVersion,
+      colors: sorted(editorColors),
+      attributes: sorted(new Set([...editorAttributes, ...attributesFromCode])),
+      parentDefined: parents,
+    },
+    null,
+    2,
+  ) + '\n',
+);
+console.log(
+  `${ideVersion}: ${uiKeys.size} UI keys, ${editorColors.size} editor colors, ` +
+    `${editorAttributes.size + attributesFromCode.size} attribute names, ${parentThemeIds.size} theme ids`,
+);

@@ -1,6 +1,92 @@
 {
+  "_comment": "IntelliJ UI keys without a VSCode counterpart, expressed over the variant's colors. Syntax: @key, ~NN opacity, >NN/<NN lighten/darken, a|b fallback. Direct mappings in ui-map.json win over these.",
+
   "*": {
     "background": "@sideBar.background",
-    "foreground": "@foreground"
-  }
+    "foreground": "@foreground",
+    "infoForeground": "@foreground~60",
+    "disabledForeground": "@foreground~40",
+    "inactiveForeground": "@foreground~40",
+    "selectionBackground": "@list.activeSelectionBackground",
+    "selectionInactiveBackground": "@list.inactiveSelectionBackground",
+    "selectionForeground": "@list.activeSelectionForeground|@foreground",
+    "hoverBackground": "@list.hoverBackground",
+    "borderColor": "@dropdown.border",
+    "separatorColor": "@dropdown.border",
+    "focusColor": "@focusBorder",
+    "focusedBorderColor": "@focusBorder"
+  },
+
+  "Panel.background": "@panel.background|@sideBar.background",
+  "Popup.background": "@editorWidget.background",
+  "ToolTip.background": "@editorHoverWidget.background",
+  "ToolTip.foreground": "@foreground",
+  "Counter.background": "@activityBarBadge.background",
+  "Counter.foreground": "@activityBarBadge.foreground",
+
+  "MainWindow.background": "@activityBar.background",
+  "ToolWindow.Stripe.borderColor": "@activityBar.background",
+  "ToolWindow.Button.selectedBackground": "@activityBar.dropBackground|@list.inactiveSelectionBackground",
+  "ToolWindow.Button.hoverBackground": "@list.hoverBackground",
+  "ToolWindow.HeaderTab.hoverBackground": "@list.hoverBackground",
+  "ToolWindow.HeaderTab.hoverInactiveBackground": "@list.hoverBackground",
+  "ToolWindow.HeaderTab.selectedInactiveBackground": "@sideBarSectionHeader.background|@sideBar.background",
+  "ToolWindow.HeaderTab.underlinedTabInactiveBackground": "@sideBarSectionHeader.background|@sideBar.background",
+  "ToolWindow.HeaderTab.inactiveUnderlineColor": "@panelTitle.activeBorder~40|@focusBorder~40",
+
+  "MainToolbar.Dropdown.pressedBackground": "@list.activeSelectionBackground",
+  "MainToolbar.Icon.pressedBackground": "@list.activeSelectionBackground",
+  "MainToolbar.Icon.background": "@titleBar.activeBackground",
+  "StatusBar.borderColor": "@statusBar.background",
+  "StatusBar.Breadcrumbs.selectionBackground": "@list.activeSelectionBackground",
+  "StatusBar.Breadcrumbs.selectionInactiveBackground": "@list.inactiveSelectionBackground",
+
+  "EditorTabs.background": "@editorGroupHeader.tabsBackground|@editor.background",
+  "EditorTabs.inactiveColoredFileBackground": "@tab.inactiveBackground~0",
+  "EditorTabs.underTabsBorderColor": "@editorGroup.border",
+
+  "Editor.SearchField.borderColor": "@dropdown.border",
+  "Editor.ToolTip.foreground": "@foreground",
+
+  "Button.startBackground": "@dropdown.background",
+  "Button.endBackground": "@dropdown.background",
+  "Button.startBorderColor": "@dropdown.border",
+  "Button.endBorderColor": "@dropdown.border",
+  "Button.default.focusColor": "@focusBorder",
+
+  "CompletionPopup.selectionInactiveBackground": "@list.inactiveSelectionBackground",
+  "CompletionPopup.matchSelectionForeground": "@list.highlightForeground",
+
+  "Popup.separatorColor": "@dropdown.border",
+  "Popup.Toolbar.background": "@editorWidget.background",
+  "Popup.Toolbar.borderColor": "@dropdown.border",
+  "Popup.Advertiser.background": "@editorWidget.background",
+  "SearchEverywhere.Advertiser.background": "@editorWidget.background",
+  "SearchEverywhere.SearchField.borderColor": "@dropdown.border",
+  "SearchEverywhere.List.separatorColor": "@dropdown.border",
+  "SearchEverywhere.Tab.selectedForeground": "@foreground",
+
+  "Table.alternativeRowBackground": "@sideBar.background",
+  "Table.stripeColor": "@sideBar.background",
+  "Table.background": "@sideBar.background",
+
+  "TextField.borderColor": "@dropdown.border",
+
+  "Notification.borderColor": "@dropdown.border",
+  "Notification.ToolWindow.informativeBorderColor": "@dropdown.border",
+  "Notification.ToolWindow.informativeForeground": "@foreground",
+
+  "Banner.infoBackground": "@notification.infoBackground|@editorWidget.background",
+  "Banner.infoBorderColor": "@dropdown.border",
+
+  "WelcomeScreen.background": "@editor.background",
+  "WelcomeScreen.Projects.background": "@sideBar.background",
+  "WelcomeScreen.SidePanel.background": "@activityBar.background",
+
+  "DragAndDrop.areaBackground": "@editorGroup.dropBackground|@list.dropBackground",
+
+  "ScrollBar.Mac.Transparent.trackColor": "@editor.background~0",
+  "ScrollBar.Transparent.trackColor": "@editor.background~0",
+  "ScrollBar.trackColor": "@editor.background~0",
+  "ScrollBar.Mac.trackColor": "@editor.background~0"
 }

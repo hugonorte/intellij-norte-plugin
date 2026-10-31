@@ -1,0 +1,15 @@
+{
+  "_comment": "Attribute keys verified outside the IntelliJ IDEA install used by tools/extract-known-keys.js. PY.*: python/python-syntax-core/src/com/jetbrains/python/highlighting/PyHighlighter.java in JetBrains/intellij-community (PyCharm / Python plugin). JS.PARAMETER: string found in the bundled JavaScript plugin jar (not in a TextAttributesKey class constant pool).",
+  "colors": [],
+  "attributes": [
+    "JS.PARAMETER",
+    "PY.ANNOTATION", "PY.BRACES", "PY.BRACKETS", "PY.BUILTIN_NAME", "PY.CLASS_DEFINITION", "PY.COMMA",
+    "PY.DECORATOR", "PY.DOC_COMMENT", "PY.DOC_COMMENT_TAG", "PY.DOT", "PY.FSTRING_FORMAT_SPEC_NUMBER",
+    "PY.FSTRING_FORMAT_SPEC_SPECIAL_CHAR", "PY.FSTRING_FRAGMENT_BRACES", "PY.FSTRING_FRAGMENT_COLON",
+    "PY.FSTRING_FRAGMENT_TYPE_CONVERSION", "PY.FUNCTION_CALL", "PY.FUNC_DEFINITION", "PY.INVALID_STRING_ESCAPE",
+    "PY.KEYWORD", "PY.KEYWORD_ARGUMENT", "PY.LINE_COMMENT", "PY.LOCAL_VARIABLE", "PY.METHOD_CALL",
+    "PY.NESTED_FUNC_DEFINITION", "PY.NUMBER", "PY.OPERATION_SIGN", "PY.PARAMETER", "PY.PARENTHS",
+    "PY.PREDEFINED_DEFINITION", "PY.PREDEFINED_USAGE", "PY.SELF_PARAMETER", "PY.STRING.B", "PY.STRING.U",
+    "PY.TYPE_PARAMETER", "PY.VALID_STRING_ESCAPE"
+  ]
+}

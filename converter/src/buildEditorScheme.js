@@ -44,6 +44,12 @@ export function buildEditorScheme(variant, theme, maps, overrides = {}, known = 
   // 1) Syntax attributes resolved through representative TextMate scope stacks.
   const fallbacks = {};
   for (const [key, def] of entries(maps.syntax)) {
+    if (def.inherit) {
+      // Always inherit from another key (neutralizes colors the parent scheme sets for this key).
+      attributes[key] = { baseAttributes: def.inherit };
+      fallbacks[key] = def.inherit;
+      continue;
+    }
     const r = resolve(def.scopes, rules, globalDefaults);
     for (const sel of Object.values(r.matched)) if (sel) usedRules.add(sel);
     if (r.usedGlobal && def.fallback) {
@@ -52,7 +58,11 @@ export function buildEditorScheme(variant, theme, maps, overrides = {}, known = 
       info.push(`${key}: no rule matched, inherits ${def.fallback}`);
       continue;
     }
-    if (r.usedGlobal) warnings.push(`${key}: no tokenColors rule matched ${def.scopes.join(' ')}; using the default foreground`);
+    if (r.usedGlobal) {
+      warnings.push(r.matchedAny
+        ? `${key}: only fontStyle rules matched ${def.scopes.join(' ')}; foreground is the default text color`
+        : `${key}: no tokenColors rule matched ${def.scopes.join(' ')}; using the default text color`);
+    }
     const fg = opaque(parseColor(r.foreground ?? textFgSrc, `${variant.id}: ${key}`));
     const attr = { FOREGROUND: hex6(fg) };
     const ft = fontType(r.fontStyle);
@@ -83,15 +93,26 @@ export function buildEditorScheme(variant, theme, maps, overrides = {}, known = 
       return r.usedGlobal ? undefined : parseColor(r.foreground, `${variant.id}: @scope:${stack.join(' ')}`);
     },
   });
-  const evalColor = (expr, where) => {
+  const evalColor = (expr, where, keepAlpha = false) => {
     const res = evaluate(expr, ctx(where));
-    return res ? hex6(opaque(res.color)) : undefined;
+    if (!res) return undefined;
+    // Only a few scheme colors (ScrollBar.*) accept RGBA; everything else is composed over the editor.
+    if (keepAlpha && res.color.a < 255) return hex6({ ...res.color, a: 255 }) + res.color.a.toString(16).padStart(2, '0');
+    return hex6(opaque(res.color));
   };
+  // A color spec is an expression, "" (explicit empty value), or {value, keepAlpha}.
+  const evalColorSpec = (spec, where) => {
+    if (spec === '') return '';
+    if (spec && typeof spec === 'object') return evalColor(spec.value, where, !!spec.keepAlpha);
+    return evalColor(spec, where);
+  };
+  const alphaKeys = new Set();
 
   // 2) <colors> from VSCode workbench colors.
   const schemeColors = {};
-  for (const [key, expr] of entries(maps.editorColors?.colors)) {
-    const v = evalColor(expr, key);
+  for (const [key, spec] of entries(maps.editorColors?.colors)) {
+    if (spec && typeof spec === 'object' && spec.keepAlpha) alphaKeys.add(key);
+    const v = evalColorSpec(spec, key);
     if (v !== undefined) schemeColors[key] = v;
   }
 
@@ -119,12 +140,13 @@ export function buildEditorScheme(variant, theme, maps, overrides = {}, known = 
 
   // 4) Overrides (already merged: _all, then the variant file).
   let overrideCount = 0;
-  for (const [key, expr] of entries(overrides.editorColors)) {
-    if (expr === null) { delete schemeColors[key]; overrideCount++; continue; }
-    const v = evalColor(expr, `override ${key}`);
-    if (v === undefined) warnings.push(`override ${key}: expression "${expr}" did not resolve`);
-    else schemeColors[key] = v;
+  for (const [key, spec] of entries(overrides.editorColors)) {
     overrideCount++;
+    if (spec === null) { delete schemeColors[key]; continue; }
+    if (spec && typeof spec === 'object' && spec.keepAlpha) alphaKeys.add(key);
+    const v = evalColorSpec(spec, `override ${key}`);
+    if (v === undefined) warnings.push(`override ${key}: expression ${JSON.stringify(spec)} did not resolve`);
+    else schemeColors[key] = v;
   }
   for (const [key, spec] of entries(overrides.attributes)) {
     overrideCount++;
@@ -137,16 +159,20 @@ export function buildEditorScheme(variant, theme, maps, overrides = {}, known = 
 
   // 5) Validation.
   for (const [k, v] of Object.entries(schemeColors)) {
-    if (!/^[0-9a-f]{6}$/.test(v)) throw new Error(`${variant.id}: color ${k} has invalid value ${v}`);
+    const ok = v === '' || /^[0-9a-f]{6}$/.test(v) || (alphaKeys.has(k) && /^[0-9a-f]{8}$/.test(v));
+    if (!ok) throw new Error(`${variant.id}: color ${k} has invalid value ${v}`);
   }
   for (const [k, a] of Object.entries(attributes)) {
     for (const p of Object.keys(a)) {
       if (COLOR_PROPS.has(p) && !/^[0-9a-f]{6}$/.test(a[p])) throw new Error(`${variant.id}: ${k}.${p} has invalid value ${a[p]}`);
     }
   }
+  let parentOnly = [];
   if (known) {
     for (const k of Object.keys(schemeColors)) if (!known.colors.has(k)) warnings.push(`unknown editor color key: ${k}`);
     for (const k of Object.keys(attributes)) if (!known.attributes.has(k)) warnings.push(`unknown attribute key: ${k}`);
+    // Keys the parent scheme colors explicitly and this scheme does not set: their parent colors show through.
+    parentOnly = (known.parentDefined?.[variant.parentScheme] || []).filter((k) => !attributes[k]);
   }
   const text = parseColor(attributes.TEXT.FOREGROUND);
   const bg = parseColor(attributes.TEXT.BACKGROUND);
@@ -173,5 +199,6 @@ export function buildEditorScheme(variant, theme, maps, overrides = {}, known = 
     info,
     winners,
     unusedRules,
+    parentOnly,
   };
 }
