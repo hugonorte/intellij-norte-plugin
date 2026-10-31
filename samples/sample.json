@@ -1,0 +1,19 @@
+{
+  "name": "norte-sample",
+  "version": "1.0.0",
+  "private": true,
+  "count": 42,
+  "ratio": 0.75,
+  "nothing": null,
+  "config": {
+    "level1": {
+      "level2": {
+        "level3": {
+          "enabled": false,
+          "url": "https://example.com/path"
+        }
+      }
+    }
+  },
+  "tags": ["one", "two", 3]
+}

@@ -534,6 +534,10 @@
       </value>
     </option>
     <option name="IMPLICIT_ANONYMOUS_CLASS_PARAMETER_ATTRIBUTES" baseAttributes="DEFAULT_PARAMETER" />
+    <option name="INJECTED_LANGUAGE_FRAGMENT">
+      <value>
+      </value>
+    </option>
     <option name="INLAY_DEFAULT">
       <value>
         <option name="FOREGROUND" value="2c303a" />

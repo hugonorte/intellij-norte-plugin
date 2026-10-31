@@ -1,0 +1,18 @@
+:root {
+  --accent: #8a78fe;
+  --gap: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  body > .container#main,
+  a:hover::before {
+    color: var(--accent) !important;
+    margin: calc(var(--gap) * 2) 0 10px;
+    background: url("bg.png") no-repeat rgba(0, 0, 0, 0.5);
+    font-family: "Inter", sans-serif;
+  }
+}
+
+input[type="text"]:focus {
+  border: 1px solid #292a32;
+}

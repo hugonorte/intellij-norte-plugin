@@ -9,3 +9,7 @@ node_modules/
 
 # Local link between variants and source files (machine-specific, never committed)
 converter/sources.local.json
+
+# Created by the sandbox IDE when it opens samples/
+samples/.idea/
+samples/*.iml

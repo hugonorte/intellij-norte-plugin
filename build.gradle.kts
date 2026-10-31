@@ -49,6 +49,21 @@ tasks.named<Zip>("buildPlugin") {
     archiveBaseName = "norte"
 }
 
+// Sandbox IDE for visual checks: opens samples/ (plus -PsampleFile=sample.ts, optional) and skips
+// first-run dialogs. idea.is.internal enables Tools > Internal Actions > UI (LaF Defaults, UI Inspector).
+tasks.named<JavaExec>("runIde") {
+    val samplesDir = layout.projectDirectory.dir("samples").asFile
+    val sampleFile = providers.gradleProperty("sampleFile").orNull
+    args(listOfNotNull(samplesDir.absolutePath, sampleFile?.let { samplesDir.resolve(it).absolutePath }))
+    jvmArgs(
+        "-Didea.is.internal=true",
+        "-Didea.trust.all.projects=true",
+        "-Djb.consents.confirmation.enabled=false",
+        "-Didea.initially.ask.config=never",
+        "-Dide.show.tips.on.startup.default.value=false",
+    )
+}
+
 // Generated themes must exist before packaging (they are produced by the converter and committed).
 tasks.named("processResources") {
     val themesDir = layout.projectDirectory.dir("src/main/resources/themes").asFile

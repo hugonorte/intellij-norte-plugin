@@ -1,1 +1,10 @@
-{ "ui": {}, "editorColors": {}, "attributes": {}, "_notes": {} }
+{
+  "ui": {},
+  "editorColors": {},
+  "attributes": {
+    "INJECTED_LANGUAGE_FRAGMENT": {}
+  },
+  "_notes": {
+    "INJECTED_LANGUAGE_FRAGMENT": "No VSCode counterpart. The parent schemes paint injected code (Markdown code fences, JS in HTML) with a green (Darcula) or light green (Default) background that VSCode never shows; an empty attribute keeps the editor background."
+  }
+}

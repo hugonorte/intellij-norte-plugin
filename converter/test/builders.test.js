@@ -144,3 +144,22 @@ test('unknown keys produce warnings', () => {
   const u = buildUiTheme(darkVariant, dark, maps, {}, new Set(['Tree.background', 'X.background']));
   assert.ok(u.warnings.some((w) => w.includes('unknown UI key: Panel.background')));
 });
+
+test('only colors flagged keepAlpha may keep 8 digits in the scheme', () => {
+  const m = { ...maps, editorColors: { colors: {
+    'ScrollBar.thumbColor': { value: '@editor.selectionBackground', keepAlpha: true },
+    SELECTION_FOREGROUND: '',
+    SELECTION_BACKGROUND: '@editor.selectionBackground',
+  }, attributes: {} } };
+  const { xml } = buildEditorScheme(darkVariant, dark, m, {});
+  assert.match(xml, /name="ScrollBar.thumbColor" value="5755d930"/);
+  assert.match(xml, /name="SELECTION_FOREGROUND" value=""/);
+  assert.match(xml, /name="SELECTION_BACKGROUND" value="222344"/);
+  const eight = [...xml.matchAll(/value="([0-9a-f]{8})"/g)].map((x) => x[1]);
+  assert.deepEqual(eight, ['5755d930']);
+});
+
+test('an empty override attribute writes an empty value (no colors)', () => {
+  const { xml } = buildEditorScheme(darkVariant, dark, maps, { attributes: { INJECTED_LANGUAGE_FRAGMENT: {} } });
+  assert.match(xml, /<option name="INJECTED_LANGUAGE_FRAGMENT">\n {6}<value>\n {6}<\/value>/);
+});
