@@ -33,6 +33,13 @@ intellijPlatform {
     pluginConfiguration {
         name = providers.gradleProperty("pluginName")
         version = providers.gradleProperty("pluginVersion")
+        // "What's New" on the Marketplace: the CHANGELOG.md section of the current version, as simple HTML.
+        // Computed at configuration time (a script function inside a lazy provider breaks the configuration
+        // cache); providers.fileContents makes CHANGELOG.md a tracked configuration input.
+        changeNotes = changelogSectionHtml(
+            providers.fileContents(layout.projectDirectory.file("CHANGELOG.md")).asText.get(),
+            providers.gradleProperty("pluginVersion").get(),
+        )
         ideaVersion {
             sinceBuild = providers.gradleProperty("pluginSinceBuild")
             untilBuild = provider { null } // pure theme: no upper bound
@@ -77,4 +84,27 @@ tasks.named("processResources") {
         val count = themesDir.listFiles()?.count { it.name.endsWith(".theme.json") || it.name.endsWith(".xml") } ?: 0
         if (count < 10) throw GradleException("Themes not generated. Run: cd converter && npm run build")
     }
+}
+
+/** Converts the "## [version]" section of CHANGELOG.md (### headings and "- " items) to HTML. */
+fun changelogSectionHtml(changelog: String, version: String): String {
+    val section = changelog.lines()
+        .dropWhile { !it.startsWith("## [$version]") }.drop(1)
+        .takeWhile { !it.startsWith("## ") }
+    check(section.any { it.isNotBlank() }) { "CHANGELOG.md has no section for version $version" }
+    fun esc(s: String) = s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+        .replace(Regex("`([^`]+)`"), "<code>$1</code>")
+    val html = StringBuilder()
+    var inList = false
+    for (line in section.map { it.trim() }.filter { it.isNotEmpty() }) {
+        if (line.startsWith("- ")) {
+            if (!inList) { html.append("<ul>"); inList = true }
+            html.append("<li>").append(esc(line.removePrefix("- "))).append("</li>")
+        } else {
+            if (inList) { html.append("</ul>"); inList = false }
+            html.append(if (line.startsWith("### ")) "<h3>${esc(line.removePrefix("### "))}</h3>" else "<p>${esc(line)}</p>")
+        }
+    }
+    if (inList) html.append("</ul>")
+    return html.toString()
 }

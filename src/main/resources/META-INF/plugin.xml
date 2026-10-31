@@ -1,10 +1,10 @@
 <idea-plugin>
   <id>com.hugonorte.norte</id>
   <name>Norte</name>
-  <vendor email="hugonorte@gmail.com">Hugo Norte</vendor>
+  <vendor email="norte.plugin@nortte.com">Hugo Norte</vendor>
 
   <description><![CDATA[
-    <b>Norte</b> is a dark theme with a deep indigo workbench and vivid, balanced syntax colors.
+    <b>Norte</b> is a color theme with a deep indigo workbench and vivid, balanced syntax colors.
     Includes 5 variants: Norte, Norte Bright, Norte Italic, Norte Bright Italic and Norte Light.
   ]]></description>
 
