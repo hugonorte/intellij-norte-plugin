@@ -569,13 +569,13 @@
     </option>
     <option name="INLAY_DEFAULT">
       <value>
-        <option name="FOREGROUND" value="b3b3b4" />
+        <option name="FOREGROUND" value="5d5d5f" />
         <option name="BACKGROUND" value="e3e6ed" />
       </value>
     </option>
     <option name="INLINE_PARAMETER_HINT">
       <value>
-        <option name="FOREGROUND" value="b3b3b4" />
+        <option name="FOREGROUND" value="5d5d5f" />
         <option name="BACKGROUND" value="e3e6ed" />
       </value>
     </option>

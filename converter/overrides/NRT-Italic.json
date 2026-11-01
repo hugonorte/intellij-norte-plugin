@@ -1,0 +1,13 @@
+{
+  "attributes": {
+    "TEXT_SEARCH_RESULT_ATTRIBUTES": {
+      "FOREGROUND": null,
+      "BACKGROUND": "@editor.findMatchBackground~30",
+      "EFFECT_COLOR": "@editor.findMatchBackground",
+      "EFFECT_TYPE": 0
+    }
+  },
+  "_notes": {
+    "TEXT_SEARCH_RESULT_ATTRIBUTES": "The current find match is also selected: the IDE swaps its background for the dark selection color but keeps the highlight foreground, so the mapped dark text (#101119) became unreadable (contrast 1.25:1). No foreground keeps the syntax colors, readable on both the selection and a 30% findMatchBackground fill (>= 3:1); the bordered effect keeps every match easy to spot."
+  }
+}
